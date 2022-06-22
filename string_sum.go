@@ -1,7 +1,5 @@
 package string_sum
 
-//package main
-
 import (
 	"errors"
 	"fmt"
@@ -15,8 +13,6 @@ var (
 	errorEmptyInput = errors.New("input is empty")
 	// Use when the expression has number of operands not equal to two
 	errorNotTwoOperands = errors.New("expecting two operands, but received more or less")
-
-	errorIsNotNumber = errors.New("Operand is not number")
 )
 
 // Implement a function that computes the sum of two int numbers written as a string
@@ -78,7 +74,7 @@ func isNumber(value string) bool {
 }
 
 func isLetter(value string) bool {
-	return value == "c"
+	return value == "c" // dirty trick
 }
 
 func isOperator(value string) bool {
@@ -114,7 +110,3 @@ func getFromOperandTokens(opA []string, opB []string) (str string, err error) {
 
 	return strconv.Itoa(a + b), nil
 }
-
-// func main() {
-// 	fmt.Println(StringSum("24c + 55"))
-// }
