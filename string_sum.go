@@ -1,6 +1,6 @@
 package string_sum
 
-// package main
+//package main
 
 import (
 	"errors"
@@ -44,7 +44,7 @@ func StringSum(input string) (output string, err error) {
 
 		if nextOperator == false {
 			if prev != "null" {
-				if isOperator(value) && isNumber(prev) {
+				if isOperator(value) && (isNumber(prev) || isLetter(prev)) {
 					nextOperator = true
 				}
 			}
@@ -63,6 +63,8 @@ func StringSum(input string) (output string, err error) {
 		prev = value
 	}
 
+	fmt.Println(operandAToken)
+
 	return getFromOperandTokens(operandAToken, operandBToken)
 }
 
@@ -73,6 +75,10 @@ func isNumber(value string) bool {
 		return false
 	}
 	return r[0] > '0' && r[0] < '9'
+}
+
+func isLetter(value string) bool {
+	return value == "c"
 }
 
 func isOperator(value string) bool {
