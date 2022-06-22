@@ -99,11 +99,11 @@ func getFromOperandTokens(opA []string, opB []string) (str string, err error) {
 	b, errB := strconv.Atoi(bs)
 
 	if errA != nil {
-		return "", fmt.Errorf("%w", errA)
+		return "", errA
 	}
 
 	if errB != nil {
-		return "", fmt.Errorf("%w", errB)
+		return "", errB
 	}
 
 	return strconv.Itoa(a + b), nil
