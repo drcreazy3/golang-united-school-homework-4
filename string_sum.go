@@ -83,16 +83,16 @@ func getFromOperandTokens(opA []string, opB []string) (str string, err error) {
 	as := strings.Join(opA, "")
 	bs := strings.Join(opB, "")
 
+	if len(as) == 0 && len(bs) == 0 {
+		return "", fmt.Errorf("%w", errorEmptyInput)
+	}
+
 	if len(as) == 0 {
 		return "", fmt.Errorf("%w", errorNotTwoOperands)
 	}
 
 	if len(bs) == 0 {
 		return "", fmt.Errorf("%w", errorNotTwoOperands)
-	}
-
-	if len(as) == 0 && len(bs) == 0 {
-		return "", fmt.Errorf("%w", errorEmptyInput)
 	}
 
 	a, errA := strconv.Atoi(as)
