@@ -53,6 +53,10 @@ func StringSum(input string) (output string, err error) {
 		if nextOperator == false {
 			operandAToken = append(operandAToken, value)
 		} else {
+			if isNumber(prev) && isOperator(value) && len(operandBToken) > 0 {
+				return "", fmt.Errorf("%w", errorNotTwoOperands)
+			}
+
 			operandBToken = append(operandBToken, value)
 		}
 
@@ -76,8 +80,15 @@ func isOperator(value string) bool {
 }
 
 func getFromOperandTokens(opA []string, opB []string) (str string, err error) {
-	a, errA := strconv.Atoi(strings.Join(opA, ""))
-	b, errB := strconv.Atoi(strings.Join(opB, ""))
+	as := strings.Join(opA, "")
+	bs := strings.Join(opB, "")
+
+	if len(as) == 0 || len(bs) == 0 {
+		return "", fmt.Errorf("%w", errorNotTwoOperands)
+	}
+
+	a, errA := strconv.Atoi(as)
+	b, errB := strconv.Atoi(bs)
 
 	if a == 0 && b == 0 {
 		return "", fmt.Errorf("%w", errorEmptyInput)
