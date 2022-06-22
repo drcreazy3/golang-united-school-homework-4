@@ -1,5 +1,7 @@
 package string_sum
 
+// package main
+
 import (
 	"errors"
 	"fmt"
@@ -78,11 +80,15 @@ func getFromOperandTokens(opA []string, opB []string) (str string, err error) {
 	b, errB := strconv.Atoi(strings.Join(opB, ""))
 
 	if a == 0 && b == 0 {
-		return "", errorEmptyInput
+		return "", fmt.Errorf("%w", errorEmptyInput)
 	}
 
-	if errA != nil || errB != nil {
-		return "", fmt.Errorf("%w", errorIsNotNumber)
+	if errA != nil {
+		return "", fmt.Errorf("%w", errA)
+	}
+
+	if errB != nil {
+		return "", fmt.Errorf("%w", errB)
 	}
 
 	return strconv.Itoa(a + b), nil
