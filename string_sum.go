@@ -13,6 +13,8 @@ var (
 	errorEmptyInput = errors.New("input is empty")
 	// Use when the expression has number of operands not equal to two
 	errorNotTwoOperands = errors.New("expecting two operands, but received more or less")
+
+	errorIsNotNumber = errors.New("Operand is not number")
 )
 
 // Implement a function that computes the sum of two int numbers written as a string
@@ -55,20 +57,7 @@ func StringSum(input string) (output string, err error) {
 		prev = value
 	}
 
-	fmt.Println(operandAToken, operandBToken)
-
-	a, errA := strconv.Atoi(strings.Join(operandAToken, ""))
-	b, errB := strconv.Atoi(strings.Join(operandBToken, ""))
-
-	if a == 0 && b == 0 {
-		return "", errorEmptyInput
-	}
-
-	if errA != nil || errB != nil {
-		return "", errorNotTwoOperands
-	}
-
-	return strconv.Itoa(a + b), nil
+	return getFromOperandTokens(operandAToken, operandBToken)
 }
 
 func isNumber(value string) bool {
@@ -83,3 +72,22 @@ func isNumber(value string) bool {
 func isOperator(value string) bool {
 	return value == "+" || value == "-"
 }
+
+func getFromOperandTokens(opA []string, opB []string) (str string, err error) {
+	a, errA := strconv.Atoi(strings.Join(opA, ""))
+	b, errB := strconv.Atoi(strings.Join(opB, ""))
+
+	if a == 0 && b == 0 {
+		return "", errorEmptyInput
+	}
+
+	if errA != nil || errB != nil {
+		return "", fmt.Errorf("%w", errorIsNotNumber)
+	}
+
+	return strconv.Itoa(a + b), nil
+}
+
+// func main() {
+// 	fmt.Println(StringSum("24c + 55"))
+// }
